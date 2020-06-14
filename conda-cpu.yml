@@ -1,0 +1,13 @@
+name: shaman-ai
+
+dependencies:
+  - python==3.7
+  - pip
+  - matplotlib
+  - opencv
+  - pip:
+    - stable-baselines3[extra]
+    - lxml
+    - tqdm
+    - seaborn
+    - pillow

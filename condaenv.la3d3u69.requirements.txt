@@ -1,0 +1,5 @@
+stable-baselines3[extra]
+lxml
+tqdm
+seaborn
+pillow

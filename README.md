@@ -31,7 +31,13 @@ Everything you need to start and finish a AI RL project from idea to production 
     ```bash
     conda install --yes --file requirements.txt
 	```
+# Tensorflow CPU
+conda env create -f conda-cpu.yml
+conda activate shaman-ai-cpu
 
+# Tensorflow GPU
+conda env create -f conda-gpu.yml
+conda activate shaman-ai-gpu
 ## Instructions
 
 - Run:
@@ -39,7 +45,9 @@ Everything you need to start and finish a AI RL project from idea to production 
 	python .
 	```
 
-## ToDo
+## OpenCV fixes
+conda install -c conda-forge opencv=4.3.0
+sudo apt-get install libopencv-*
 
 
 ### To Do list

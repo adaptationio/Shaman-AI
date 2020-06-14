@@ -112,6 +112,10 @@ class Player():
     def __init__(self, config):
         self.config = config
 
+class PlayerAI():
+    def __init__(self, config):
+        self.config = config
+
          
 
 
