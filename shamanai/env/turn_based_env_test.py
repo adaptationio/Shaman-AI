@@ -7,7 +7,7 @@ class BattleAgents():
     def __init__(self, config):
         self.love = 14
         self.config = config
-        self.actions = [1,2,3,4]
+        self.actions = [0,1,2]
         self.state = None
         self.state_full = None
         self.state_current = None
@@ -18,26 +18,18 @@ class BattleAgents():
         self.bet_value = 2
         self.live_state =[2]
         self.live = True
-        self.player = Player(self.config)
+        self.player1 = Player(self.config)
+        self.player2 = Player(self.config)
         #self.numbergen = NumberGen()
 
     
-    def make_episode(self):
-        #NumberGen.to_array(10000000, True)
-        #self.numbergen = NumberGen()
-        #self.numbergen.to_array(10000000, True)
-        #self.state_full = np.load('data/game10000000.npy')
-        #self.state_full []
-        print('make episode')
+    def make_state(self):
+        state = [0,1,2,3,4,5,6,7,8,9]
+        return state
 
     def make_current_state(self, count):
-        if self.live:
-            self.state = self.live_state
-            
-        else:
-            start = (0+count+self.rand)
-            end = (1001+count+self.rand)
-            #self.state = self.state_full[start:end]
+        count = count
+        self.state = count
             
         return self.state
 
@@ -47,41 +39,46 @@ class BattleAgents():
 
     def step(self, action):
         self.count += 1
-        self.player.action(self.state_current, action)
-        self.make_current_state(self.count)
-        state = self.state_maker()
-        reward = self.reward(self.get_state(), self.bet_value)
-        self.player.balance += reward
+        self.player1.action = action
+        self.player2.action = np.random.random_integers(0,3)
+        #self.player2.action = int(input("action 0,1,2"))
+        #self.player.action(state action)
+        #self.make_current_state(self.count)
+        self.state = self.state_maker()
+        reward = self.reward(self.state)
+        #self.player.balance += reward
         done = self.done(self.count)
         if done:
             self.render()
         
-        return state, reward, done
+        return self.state, reward, done
 
 
     def reset(self):
-        self.player.balance = 0
+        self.player1.hp = 100
+        self.player2.hp = 100
         self.count = 0
-        self.make_episode()
+        #self.make_episode()
         #if self.eval:
             #self.rand = np.random.random_integers(len(self.state_full / 10 * 9), len(self.state_full))
         #else:
             #self.rand = np.random.random_integers(len(self.state_full / 10 * 9))
-        self.state = self.make_current_state(self.count)
+        #self.state = self.make_current_state(self.count)
         #print(len(self.state))
-        state = self.state_maker()
-        return state
+        self.state = self.state_maker()
+        return self.state
 
     def render(self):
-        print(self.player.balance)
+        print(self.player1.details)
 
 
     def state_maker(self):
         #user = self.player.details(self.count)
-        state_details = self.state_details(self.state)
-        count = np.array([self.count])
-        state = self.data_grabber.flatten(state_details, count)
-
+        #state_details = self.state_details(self.state)
+        #count = np.array([self.count])
+        #state = self.data_grabber.flatten(state_details, count)
+        state = [0,1,2,3,4,5,6,7,8,9]
+        state = np.asarray(state)
         return state
 
     def reward(self, state):
@@ -91,69 +88,27 @@ class BattleAgents():
         return reward
     
     def done(self, count):
-        if count == 10000:
+        if count == 10000 or self.player1.hp < 0:
             
             return True
         else:
             return False 
 
     def state_details(self, state):
-        ind = Indicators()
         details = []
-        mean = ind.mean(state)
-        median = ind.mean(state)
-        black, red = ind.bandr(state)
-        details.append([mean, median, black, red])
+        details.append([self.state])
         return details[0]
-
-    def actions_result(self, action1, action2):
-        p1a = action1
-        p2a = action2
-        ## 0 = ah, 1 = am, 2 = al
-        ## 3 = bh, 4 = bm, 5 = bl
-        ## 6 = ch, 7 = cm, 8 = cl
-        
-
          
 
          
 class Player():
     def __init__(self, config):
         self.config = config
-        self.hp = 100
+        self.hp = 1000
+        self.action = 0
+        self.details = "details"
     
-    def attack_high(self):
-        return
-    
-    def attack_mid(self):
-        return
-    
-    def attack_low(self):
-        return
-
-    def block_high(self):
-        return
-    
-    def block_mid(self):
-        return
-
-    def block_low(self):
-        return
-
-    def counter_high(self):
-        return
-
-    def counter_mid(self):
-        return
-
-    def counter_low(self):
-        return
-    
-
-
-
-    
-    def action_user(self, m_price, pm_price):
+    def action_user(self):
         #print(len)
         #self.update(m_price)
         x = input('buy, sell, close, hold?:')
@@ -169,7 +124,7 @@ class Player():
         else:
             self.hold_position(m_price, pm_price)
 
-    def action(self, m_price, action, pm_price):
+    def actions(self, m_price, action, pm_price):
         #print(len)
         #self.update(m_price)
         x = action
@@ -198,7 +153,7 @@ class Player():
 class PlayerAI():
     def __init__(self, config):
         self.config = config
-
+        
 
     def action_user(self, m_price, pm_price):
         #print(len)
@@ -216,7 +171,7 @@ class PlayerAI():
         else:
             self.hold_position(m_price, pm_price)
 
-    def action(self, m_price, action, pm_price):
+    def actions(self, m_price, action, pm_price):
         #print(len)
         #self.update(m_price)
         x = action
