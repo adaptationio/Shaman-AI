@@ -111,10 +111,95 @@ class BattleAgents():
 class Player():
     def __init__(self, config):
         self.config = config
+    
+    def action_user(self, m_price, pm_price):
+        #print(len)
+        #self.update(m_price)
+        x = input('buy, sell, close, hold?:')
+        x = str(x)
+        if x == "buy":
+            self.open_position_long(m_price, pm_price)
+        elif  x == "sell":
+            self.open_position_short(m_price, pm_price)
+        elif x == "close":
+            self.close_position(m_price, pm_price)
+        elif x == "hold":
+            self.hold_position(m_price, pm_price)
+        else:
+            self.hold_position(m_price, pm_price)
+
+    def action(self, m_price, action, pm_price):
+        #print(len)
+        #self.update(m_price)
+        x = action
+        #x = self.normalize(x)
+        #x = int(x)
+        #if self.placement < -0.200 or self.placement > 0.200:
+            #self.close_position(m_price, pm_price)
+        if self.config.buy == True:
+        
+            if x == 2:
+                self.open_position_long(m_price, pm_price, x)
+            elif x == 1:
+                self.close_position(m_price, pm_price, x)
+            elif x == 0:
+                self.open_position_short(m_price, pm_price, x)
+        else:   
+            if x == 0:
+                self.open_position_short(m_price, pm_price, x)
+            elif x == 1:
+                self.close_position(m_price, pm_price, x)
+            elif x == 2:
+                self.open_position_long(m_price, pm_price, x)
+        if x == 3:
+            self.hold_position(m_price, pm_price)
 
 class PlayerAI():
     def __init__(self, config):
         self.config = config
+        
+
+    def action_user(self, m_price, pm_price):
+        #print(len)
+        #self.update(m_price)
+        x = input('buy, sell, close, hold?:')
+        x = str(x)
+        if x == "buy":
+            self.open_position_long(m_price, pm_price)
+        elif  x == "sell":
+            self.open_position_short(m_price, pm_price)
+        elif x == "close":
+            self.close_position(m_price, pm_price)
+        elif x == "hold":
+            self.hold_position(m_price, pm_price)
+        else:
+            self.hold_position(m_price, pm_price)
+
+    def action(self, m_price, action, pm_price):
+        #print(len)
+        #self.update(m_price)
+        x = action
+        #x = self.normalize(x)
+        #x = int(x)
+        #if self.placement < -0.200 or self.placement > 0.200:
+            #self.close_position(m_price, pm_price)
+        if self.config.buy == True:
+        
+            if x == 2:
+                self.open_position_long(m_price, pm_price, x)
+            elif x == 1:
+                self.close_position(m_price, pm_price, x)
+            elif x == 0:
+                self.open_position_short(m_price, pm_price, x)
+        else:   
+            if x == 0:
+                self.open_position_short(m_price, pm_price, x)
+            elif x == 1:
+                self.close_position(m_price, pm_price, x)
+            elif x == 2:
+                self.open_position_long(m_price, pm_price, x)
+        if x == 3:
+            self.hold_position(m_price, pm_price)
 
          
 
