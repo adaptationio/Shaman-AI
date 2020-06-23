@@ -1,5 +1,5 @@
 import numpy as np
-from .state import *
+#from .state import *
 import gym
 from gym import error, spaces, utils
 from gym.utils import seeding
@@ -7,7 +7,7 @@ from gym.utils import seeding
 #env = WhatIsTheColor()
 
 import numpy as np
-from .env2 import Template
+
 #from .pairs import PairDefault 
 
 #MAIN WRAPPER FOR THE ENVIRONMENT TO WORK WITH OPEN AI GYM
@@ -23,7 +23,7 @@ class Template_Gym(gym.Env):
         self.config = config
         self.eval= self.config.eval
         self.start = 0
-        self.env = self.config.env
+        self.env = self.config.env(self.config)
         self.viewer = None
         self.info = None
         self.reward = None
@@ -33,12 +33,10 @@ class Template_Gym(gym.Env):
         self.state_dim = 32
         self.num_envs = 1
         self.num_envs_per_sub_batch = 1
-        self.total_pips = []
-        self.player = self.env.player
-        self.pips = self.env.pips
         self.starter = 0
         self.discrete = True
         self.shape = len(self.env.reset())
+        self.action_shape = len(self.env.actions)
 
 
         #self.df = df
@@ -53,7 +51,7 @@ class Template_Gym(gym.Env):
             #high =  np.array(1, dtype=int) - np.ones(len(self.maze_size), dtype=int)
             #aud = 3339
             #self.observation_space = spaces.Box(low=-10000, high=10000, shape=(3333,))
-            self.observation_space = spaces.Box(low=-10000, high=10000, shape=(self.shape,))
+            self.observation_space = spaces.Box(low=0, high=255, shape=(83,83,3))
         else:
             # Actions of the format Buy x%, Sell x%, Hold, etc.
             self.action_space = spaces.Box(low=np.array([0, 0]), high=np.array([3, 1]), dtype=np.float32)

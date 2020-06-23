@@ -1,4 +1,5 @@
 stable-baselines3[extra]
+stable-baselines[extra]
 tensorflow-gpu==2.1.0
 numpy
 opencv-python==4.1.1.26

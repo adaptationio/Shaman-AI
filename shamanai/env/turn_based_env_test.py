@@ -39,13 +39,13 @@ class BattleAgents():
 
     def step(self, action):
         self.count += 1
-        self.player1.action = action
-        self.player2.action = np.random.random_integers(0,3)
-        #self.player2.action = int(input("action 0,1,2"))
-        #self.player.action(state action)
+        action = action
+        if self.state[0] == action:
+            self.player1.score += 1
+        #self.player.action = int(input("action 0,1,2"))
+        reward = self.reward(self.state, action)
         #self.make_current_state(self.count)
         self.state = self.state_maker()
-        reward = self.reward(self.state)
         #self.player.balance += reward
         done = self.done(self.count)
         if done:
@@ -55,8 +55,8 @@ class BattleAgents():
 
 
     def reset(self):
-        self.player1.hp = 100
-        self.player2.hp = 100
+        self.player1.score = 0
+        #self.player2.hp = 100
         self.count = 0
         #self.make_episode()
         #if self.eval:
@@ -69,7 +69,7 @@ class BattleAgents():
         return self.state
 
     def render(self):
-        print(self.player1.details)
+        print(self.player1.score)
 
 
     def state_maker(self):
@@ -77,18 +77,25 @@ class BattleAgents():
         #state_details = self.state_details(self.state)
         #count = np.array([self.count])
         #state = self.data_grabber.flatten(state_details, count)
-        state = [0,1,2,3,4,5,6,7,8,9]
+        self.count
+        state = [0,1,2]
+        state = [state[np.random.randint(0,3)]]
+
         state = np.asarray(state)
         return state
 
-    def reward(self, state):
-        reward = 0
+    def reward(self, state, action):
+        if state[0] == action:
+            reward = 1
+        else:
+            reward = 0
     
 
         return reward
     
     def done(self, count):
-        if count == 10000 or self.player1.hp < 0:
+        if count == 100 or self.player1.hp < 0:
+            print(self.player1.score)
             
             return True
         else:
@@ -107,6 +114,7 @@ class Player():
         self.hp = 1000
         self.action = 0
         self.details = "details"
+        self.score = 0
     
     def action_user(self):
         #print(len)
