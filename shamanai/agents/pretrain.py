@@ -28,8 +28,8 @@ def pre_train(self):
 
         env.close()
 
-    def gen_pre_train(self, game, state, num_e=1, save='default2', episodes=10):
-        self.create_envs(game_name=game, state_name=state, num_env=num_e)
-        env=SubprocVecEnv(self.env_fns)
-        self.expert_agent = "moose"
-        self.generate_expert_traj(self.expert_agent, save, env, n_episodes=episodes)
+def gen_pre_train(self, game, state, num_e=1, save='default2', episodes=10):
+    self.create_envs(game_name=game, state_name=state, num_env=num_e)
+    env=SubprocVecEnv(self.env_fns)
+    self.expert_agent = "moose"
+    self.generate_expert_traj(self.expert_agent, save, env, n_episodes=episodes)

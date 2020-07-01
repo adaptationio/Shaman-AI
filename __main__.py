@@ -4,7 +4,9 @@ test = PPO2_SB_TEST()
 def main():
    print('test')
    #trainer.train() 
-   test.train()
+   #test.train()
+   #test.gen_pre_train()
+   test.pre_train()
    #test.evaluate()
     
     

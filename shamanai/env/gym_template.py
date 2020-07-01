@@ -51,7 +51,7 @@ class Template_Gym(gym.Env):
             #high =  np.array(1, dtype=int) - np.ones(len(self.maze_size), dtype=int)
             #aud = 3339
             #self.observation_space = spaces.Box(low=-10000, high=10000, shape=(3333,))
-            self.observation_space = spaces.Box(low=0, high=255, shape=(83,83,3))
+            self.observation_space = spaces.Box(low=0, high=255, shape=(self.shape,))
         else:
             # Actions of the format Buy x%, Sell x%, Hold, etc.
             self.action_space = spaces.Box(low=np.array([0, 0]), high=np.array([3, 1]), dtype=np.float32)

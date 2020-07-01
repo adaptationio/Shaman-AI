@@ -3,11 +3,12 @@ from pynput.keyboard import Key, Controller
 moves =[False, False]
 
 class KeyLogger():
-    def __init__(self, listener=True, action_space=5, keys=['0','1','2','3','4'], config=None):
+    def __init__(self, listener=True, action_space=5, keys=['0','1','2','3','4'], action_keys=['0','1','2','3', '4'], config=None):
         self.moose = "9"
         self.keys = keys
-        self.actions = [False] * action_space
+        self.actions = [False] * len(self.keys)
         self.action = 0
+        self.action_keys = action_keys
         if listener:
             self.listener_start()
     def on_press(self, key):
@@ -29,20 +30,27 @@ class KeyLogger():
         return 
 
     def on_release(self, key):
-        print('{0} released'.format(
-            key))
-        #self.moose = ''
-        moose = key
-        if key.char:
-            for i in range(len(self.keys)):
+        try:
+            print('{0} released'.format(
+                key))
+         #self.moose = ''
+            moose = key
+            if key.char:
+                for i in range(len(self.keys)):
                     if key.char == str(self.keys[i]):
                         self.actions[i] = False
+        except AttributeError:
+            print('special key {0} pressed'.format(
+                key))
+            if str(key) == 'Key.up':
+                print("moose")
     
         if key == keyboard.Key.esc:
-            # Stop listener
+            self.listener.stop()
             return False
 
     def action_step(self):
+
         if self.actions[3] == True and self.actions[2] == True:
             self.action = 4  
         elif self.actions[1] == True:
@@ -90,10 +98,10 @@ class KeyboardController():
         self.keyboard.type(string)
 
 
-#test = KeyLogger()
-#moose = True
-#while moose:
-    #tester = moose
+test = KeyLogger()
+moose = True
+while moose:
+    tester = moose
     #print(test.actions)
 
 

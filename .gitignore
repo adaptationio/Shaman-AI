@@ -162,3 +162,13 @@ saves/save78.zip
 .screenshot2020-0621_19-24-28-350027.png
 .screenshot2020-0621_19-26-12-833815.png
 .screenshot2020-0622_08-37-28-517671.png
+shamanai/agents/__pycache__/__init__.cpython-36.pyc
+shamanai/agents/__pycache__/config.cpython-36.pyc
+shamanai/agents/__pycache__/human_agent_TB.cpython-36.pyc
+shamanai/agents/__pycache__/test_agent.cpython-36.pyc
+shamanai/common/__pycache__/pyautogui.cpython-36.pyc
+shamanai/env/__pycache__/__init__.cpython-36.pyc
+__pycache__/__main__.cpython-36.pyc
+shamanai/__pycache__/__init__.cpython-36.pyc
+shamanai/env/__pycache__/gym_template.cpython-36.pyc
+shamanai/env/__pycache__/turn_based_env_test.cpython-36.pyc

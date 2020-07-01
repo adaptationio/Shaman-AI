@@ -18,12 +18,13 @@ from stable_baselines.deepq import DQN
 #from stable_baselines.deepq.policies import FeedForwardPolicy
 from .config import Config
 from ..env import Template_Gym
-
+from .human_agent_TB import HumanAgentTB
+from .human_agent_RT import HumanAgentRT
 
 #env = Template_Gym()
-#from stable_baselines.gail import generate_expert_traj
+from stable_baselines.gail import generate_expert_traj
 
-#from stable_baselines.gail import ExpertDataset
+from stable_baselines.gail import ExpertDataset
 
 
 timestamp = datetime.datetime.now().strftime('%y%m%d%H%M%S')
@@ -280,13 +281,13 @@ class PPO2_SB_TEST():
         self.env = SubprocVecEnv([self.make_env(env_id, i) for i in range(num_e)])
         #env = Template_Gym()
         #self.env = DummyVecEnv([lambda: env])
-        self.env = VecNormalize(self.env, norm_obs=True, norm_reward=True)
+        #self.env = VecNormalize(self.env, norm_obs=True, norm_reward=True)
         #env = make_env()
         #model = GAIL("MlpPolicy", env=env, expert_dataset=dataset, verbose=1)
-        self.env.save_running_average("saves"+self.config.pair)
-        self.model = PPO2(CustomPolicy, self.env, verbose=1, nminibatches=1,  learning_rate=1e-5, tensorboard_log="./m1ln4" )
+        #self.env.save_running_average("saves"+self.config.pair)
+        self.model = PPO2(MlpPolicy, self.env, verbose=1, nminibatches=1,  learning_rate=1e-5, tensorboard_log="./m1ln4" )
         #self.model = PPO2.load("saves/m19", self.env, policy=CustomPolicy, tensorboard_log="./default/" )
-        self.env.save_running_average("saves"+self.config.pair)
+        #self.env.save_running_average("saves"+self.config.pair)
         # Pretrain the PPO2 model
         self.model.pretrain(dataset, n_epochs=10000)
 
@@ -295,11 +296,11 @@ class PPO2_SB_TEST():
 
         # Test the pre-trained model
         self.env = self.model.get_env()
-        self.env.save_running_average("saves"+self.config.pair)
+        #self.env.save_running_average("saves"+self.config.pair)
         obs = self.env.reset()
 
         reward_sum = 0.0
-        for _ in range(1000000):
+        for _ in range(11):
             action, _ = self.model.predict(obs)
             obs, reward, done, _ = self.env.step(action)
             reward_sum += reward
@@ -311,22 +312,26 @@ class PPO2_SB_TEST():
 
         self.env.close()
 
-    def gen_pre_train(self, num_e=1, save='default2', episodes=1000):
+
+
+    def gen_pre_train(self, num_e=1, save='default2', episodes=10):
         #self.create_envs(game_name=game, state_name=state, num_env=num_e)
         #self.env=SubprocVecEnv(self.env_fns)
         env_id = 'default'
         num_e = 1
-        self.env = SubprocVecEnv([self.make_env(env_id, i) for i in range(num_e)])
+        self.env = Template_Gym(config=self.config)
         #env = Template_Gym()
         #self.env = DummyVecEnv([lambda: env])
-        self.env = VecNormalize(self.env, norm_obs=True, norm_reward=True)
+        #self.env = VecNormalize(self.env, norm_obs=True, norm_reward=True)
         #env = make_env()
         #model = GAIL("MlpPolicy", env=env, expert_dataset=dataset, verbose=1)
-        self.env.load_running_average("saves")
-        self.model = PPO2.load("saves/m19", self.env, policy=CustomPolicy, tensorboard_log="./default/" )
-        self.env.load_running_average("saves")
+        #self.env.load_running_average("saves")
+        #self.model = PPO2.load("saves/m19", self.env, policy=CustomPolicy, tensorboard_log="./default/" )
+        #self.env.load_running_average("saves")
         #env = make_env()
         #self.expert_agent = 
-        generate_expert_traj(self.model, save, self.env, n_episodes=episodes)
+        #self.model = HumanAgentTB()
+        self.model = HumanAgentRT()
+        generate_expert_traj(self.model.train, save, self.env, n_episodes=episodes)
         
 

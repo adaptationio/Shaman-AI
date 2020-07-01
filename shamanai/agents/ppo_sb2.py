@@ -20,9 +20,9 @@ from ..env import Template_Gym
 from ..common import CustomPolicy, CustomPolicy_2, CustomLSTMPolicy, CustomPolicy_4, CustomPolicy_3, CustomPolicy_5
 from ..common import PairList, PairConfig, PairsConfigured
 #env = Template_Gym()
-#from stable_baselines.gail import generate_expert_traj
+from stable_baselines.gail import generate_expert_traj
 
-#from stable_baselines.gail import ExpertDataset
+from stable_baselines.gail import ExpertDataset
 
 
 timestamp = datetime.datetime.now().strftime('%y%m%d%H%M%S')
@@ -177,47 +177,10 @@ class PPO2_SB():
             print(datetime.datetime.now())
             print(time.ctime())
             print('Market Check')
-            for k in range(144000):
-                times = datetime.datetime.now(tz=pytz.timezone('US/Eastern'))
-                hour = int(times.hour)
-                #minute = int(times[14:16])
-                date = time.ctime()
-                day = str(times.day)
-                #print(day)
             
-                if day == "Fri" and hour >=int(17) or day == "Sat" or day == "Sun" and hour <=int(17):
-                    print('Market Closed')
-                    time.sleep(int(60))
-                        
-                else:
-                    print('Market Open')
-                    break
 
             print("Market time check")
-            for m in range(14400):
-                times = str(datetime.datetime.now(tz=pytz.timezone('US/Eastern')))
-                hour = int(times[11:13])
-                minute = int(times[14:16])
-                date = time.ctime()
-                day = str(date[0:3])
-                     
-                if hour == 5 and minute == 1 or hour == 9 and minute==1 or hour == 13 and minute==1 or hour == 17 and minute ==1 or hour == 21 and minute ==1 or hour == 1 and minute == 1:
-                    print(datetime.datetime.now())
-                    break
-                elif hour == 5 and minute == 2 or hour == 9 and minute==2 or hour == 13 and minute==2 or hour == 17 and minute ==2 or hour == 21 and minute ==2 or hour == 1 and minute == 2:
-                    print(datetime.datetime.now())
-                    break
-                elif hour == 5 and minute == 3 or hour == 9 and minute==3 or hour == 13 and minute==3 or hour == 17 and minute ==3 or hour == 21 and minute ==3 or hour == 1 and minute == 3:
-                    print(datetime.datetime.now())
-                    break
-                elif hour == 5 and minute == 4 or hour == 9 and minute==4 or hour == 13 and minute==4 or hour == 17 and minute ==4 or hour == 21 and minute ==4 or hour == 1 and minute == 4:
-                    print(datetime.datetime.now())
-                    break
-                elif hour == 5 and minute == 5 or hour == 9 and minute==5 or hour == 13 and minute==5 or hour == 17 and minute ==5 or hour == 21 and minute ==5 or hour == 1 and minute == 5:
-                    print(datetime.datetime.now())
-                    break    
-                else:
-                    time.sleep(int(60))
+        
             obs = self.env.reset()
             
             state = None
@@ -327,5 +290,12 @@ class PPO2_SB():
         #env = make_env()
         #self.expert_agent = 
         generate_expert_traj(self.model, save, self.env, n_episodes=episodes)
+
+
+    def gen_pre_train_2(self, game, state, num_e=1, save='default2', episodes=10):
+        self.create_envs(game_name=game, state_name=state, num_env=num_e)
+        env=SubprocVecEnv(self.env_fns)
+        self.expert_agent = "moose"
+        self.generate_expert_traj(self.expert_agent, save, env, n_episodes=episodes)
         
 

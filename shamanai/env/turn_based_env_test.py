@@ -46,6 +46,7 @@ class BattleAgents():
         reward = self.reward(self.state, action)
         #self.make_current_state(self.count)
         self.state = self.state_maker()
+        print(self.state)
         #self.player.balance += reward
         done = self.done(self.count)
         if done:
@@ -66,6 +67,7 @@ class BattleAgents():
         #self.state = self.make_current_state(self.count)
         #print(len(self.state))
         self.state = self.state_maker()
+        print(self.state)
         return self.state
 
     def render(self):
@@ -94,7 +96,7 @@ class BattleAgents():
         return reward
     
     def done(self, count):
-        if count == 100 or self.player1.hp < 0:
+        if count == 10 or self.player1.hp < 0:
             print(self.player1.score)
             
             return True
