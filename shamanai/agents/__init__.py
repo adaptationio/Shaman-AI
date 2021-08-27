@@ -3,4 +3,4 @@ from .test_agent import *
 from .config import *
 from .human_agent_RT import *
 from .human_agent_TB import *
-from .optmize import *
+#from .optimize import *

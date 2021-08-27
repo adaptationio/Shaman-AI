@@ -10,8 +10,8 @@ class MouseLogger():
         self.test= "test"
         self.actions = [0,0,0]
         self.xandy = []
-        if listener:
-            self.listener_start()
+        #if listener:
+            #self.listener_start()
     def on_move(self, x, y):
         print('Pointer moved to {0}'.format(
         (x, y)))
@@ -83,6 +83,7 @@ class MouseLogger():
         return self.actions
 
     def grab_screen(self):
+        self.listener_start()
         while len(self.xandy) < 2:
             pass
         x = self.xandy[0][0]
@@ -159,7 +160,7 @@ class MouseController():
         # Scroll two steps down
         self.mouse.scroll(x, y)
 
-test = MouseLogger()
-moose = True
+#test = MouseLogger()
+#moose = True
 #while moose:
-test.action_step_2()
+#test.action_step_2()

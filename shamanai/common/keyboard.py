@@ -98,10 +98,10 @@ class KeyboardController():
         self.keyboard.type(string)
 
 
-test = KeyLogger()
-moose = True
-while moose:
-    tester = moose
+#test = KeyLogger()
+#moose = True
+#while moose:
+    #tester = moose
     #print(test.actions)
 
 
