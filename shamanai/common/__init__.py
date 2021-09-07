@@ -2,4 +2,4 @@ from .controller import *
 from .controller_wrapper import *
 from .keyboard import *
 from .mouse import *
-from .shamanrt import *
+#from .shamanrt import *
