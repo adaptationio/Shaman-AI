@@ -98,6 +98,8 @@ class MouseLogger():
         self.test= "test"
         self.listener = mouse.Listener(on_move=self.on_move,on_click=self.on_click,on_scroll=self.on_scroll)
         self.listener()
+        self.action = 0
+        self.moves = [False, False, False, False, False]
     def on_move(self, x, y):
         print('Pointer moved to {0}'.format(
             (x, y)))
@@ -106,8 +108,10 @@ class MouseLogger():
         print('{0} at {1}'.format(
             'Pressed' if pressed else 'Released',
             (x, y)))
+        self.moves[1] = True
         if not pressed:
             # Stop listener
+        
             return False
 
     def on_scroll(self, x, y, dx, dy):
@@ -121,6 +125,23 @@ class MouseLogger():
             on_click=self.on_click,
             on_scroll=self.on_scroll) as self.listener:
             self.listener.join()
+            
+    def actions(self):
+        if self.moves[3] == True and self.moves[2] == True:
+            self.action = 4  
+        elif self.moves[1] == True:
+            self.action = 1
+        elif self.moves[2] == True:
+            self.action = 2
+        elif self.moves[3] == True:
+            self.action = 3
+        elif self.moves[3] == True:
+            self.action = 3
+        
+
+        else:
+            self.action = 0
+        return self.action
 
 class MouseController():
     def __init__(self):

@@ -1,4 +1,4 @@
 {
     "git.ignoreLimitWarning": true,
-    "python.pythonPath": "C:\\Users\\adaptation\\anaconda3\\envs\\Shaman-AI\\python.exe"
+    "python.pythonPath": "/home/adaptationai/anaconda3/envs/Shaman-AI/bin/python"
 }

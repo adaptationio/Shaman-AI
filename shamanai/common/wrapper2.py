@@ -43,3 +43,4 @@ class WarpFrameRGBYolo(gym.ObservationWrapper):
     def observation(self, frame):
         frame = cv2.resize(frame, (224, 224), interpolation=cv2.INTER_AREA)
         return frame
+
